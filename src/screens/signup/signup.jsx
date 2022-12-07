@@ -5,11 +5,11 @@ import { Input } from "../../components/input";
 import { colors, modifiers } from "../../utils/theme";
 import { Header } from "../../components/header";
 import { TextButton } from "../../components/textButton";
-import {firebase} from "../../services/firebaseConfig",
+import { firebase } from "../../services/firebaseConfig";
 
 function Signup({ navigation }) {
   const [showPass, setShowPass] = useState(false);
-  const [userNmae, setUserName] = useState(false);
+  const [userName, setUserName] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
 
@@ -21,16 +21,12 @@ function Signup({ navigation }) {
     }
   };
   const onSignupPress = () => {
-    console.log(userNmae, email, password);
-    firebase
-    .firestore()
-    .collection('users')
-    .doc('dummy id')
-    .set({
-      user_name:userNmae,
-      user_email:email,
-      user_password:password.
-    })
+    console.log(userName, email, password);
+    firebase.firestore().collection("users").doc("id002").set({
+      user_name: userName,
+      user_email: email,
+      user_password: password,
+    });
   };
   const goToSignin = () => {
     navigation.navigate("Signin");

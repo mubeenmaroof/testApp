@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { colors } from "../utils/theme";
 
-function BButton({ title = "title", bgColor = colors.green, onButtonPress }) {
+function BButton({ title = "title", onButtonPress }) {
   return (
     <TouchableOpacity
       style={[styles.btnClr, { backgroundColor: colors.primary }]}

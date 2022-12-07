@@ -1,4 +1,4 @@
-import * as firebase from "firebase/app";
+import * as firebase from "firebase";
 import "@firebase/firestore";
 
 // Optionally import the services that you want to use
@@ -18,8 +18,9 @@ const firebaseConfig = {
   appId: "1:433995914896:web:982361ad3cf1b7e9fa8215",
   measurementId: "G-L1Z1X74TE4",
 };
-
-firebase.initializeApp(firebaseConfig);
+if (firebase.apps.length > 0 === false) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export { firebase };
 
