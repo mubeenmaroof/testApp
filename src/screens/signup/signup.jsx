@@ -5,9 +5,13 @@ import { Input } from "../../components/input";
 import { colors, modifiers } from "../../utils/theme";
 import { Header } from "../../components/header";
 import { TextButton } from "../../components/textButton";
+import {firebase} from "../../services/firebaseConfig",
 
 function Signup({ navigation }) {
   const [showPass, setShowPass] = useState(false);
+  const [userNmae, setUserName] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState(false);
 
   const handleShowPass = () => {
     if (showPass === true) {
@@ -15,6 +19,18 @@ function Signup({ navigation }) {
     } else if (showPass === false) {
       setShowPass(true);
     }
+  };
+  const onSignupPress = () => {
+    console.log(userNmae, email, password);
+    firebase
+    .firestore()
+    .collection('users')
+    .doc('dummy id')
+    .set({
+      user_name:userNmae,
+      user_email:email,
+      user_password:password.
+    })
   };
   const goToSignin = () => {
     navigation.navigate("Signin");
@@ -27,16 +43,19 @@ function Signup({ navigation }) {
         <Input
           placeholder={"User Name"}
           showIcon={true}
+          onChange={setUserName}
           iconeName={"person-outline"}
         />
         <Input
           placeholder={"Email"}
           showIcon={true}
+          onChange={setEmail}
           iconeName={"mail-outline"}
         />
         <Input
           placeholder={"Password"}
           isSecure={!showPass}
+          onChange={setPassword}
           showIcon={true}
           iconeName={showPass === false ? "eye-outline" : "eye-off-outline"}
           onIconPress={handleShowPass}
@@ -48,7 +67,7 @@ function Signup({ navigation }) {
           />
         </View>
 
-        <BButton title={"Sign up"} />
+        <BButton title={"Sign up"} onButtonPress={onSignupPress} />
       </View>
     </ScrollView>
   );
