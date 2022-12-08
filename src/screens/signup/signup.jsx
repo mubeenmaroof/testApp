@@ -1,11 +1,19 @@
 import { useState } from "react";
-import { ScrollView, View, StyleSheet } from "react-native";
+import { Camera, CameraType } from "expo-camera";
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { BButton } from "../../components/BButton";
 import { Input } from "../../components/input";
 import { colors, modifiers } from "../../utils/theme";
 import { Header } from "../../components/header";
 import { TextButton } from "../../components/textButton";
 import { firebase } from "../../services/firebaseConfig";
+import { Ionicons } from "@expo/vector-icons";
 
 function Signup({ navigation }) {
   const [showPass, setShowPass] = useState(false);
@@ -35,6 +43,11 @@ function Signup({ navigation }) {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.bgcolor }}>
       <Header title={"Sign up"} />
+      <TouchableOpacity>
+        <View style={styles.pickImageCircle}>
+          <Ionicons name={"md-image-sharp"} color={"white"} size={50} />
+        </View>
+      </TouchableOpacity>
       <View style={styles.formCon}>
         <Input
           placeholder={"User Name"}
@@ -81,5 +94,14 @@ const styles = StyleSheet.create({
   },
   siginIn: {
     alignItems: "center",
+  },
+  pickImageCircle: {
+    backgroundColor: "orange",
+    height: 100,
+    width: 100,
+    borderRadius: 100,
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
