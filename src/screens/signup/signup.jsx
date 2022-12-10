@@ -16,6 +16,7 @@ import { firebase } from "../../services/firebaseConfig";
 import { Ionicons } from "@expo/vector-icons";
 import { MediaPicker } from "../../components/mediapicker";
 import { CustomCamera } from "../../components/customCamera";
+import { uploadImage } from "../../services/uploadImage";
 
 function Signup({ navigation }) {
   const [showPass, setShowPass] = useState(false);
@@ -36,11 +37,12 @@ function Signup({ navigation }) {
   };
   const onSignupPress = () => {
     console.log(userName, email, password);
-    firebase.firestore().collection("users").doc("id002").set({
+    firebase.firestore().collection("users").doc("id003").set({
       user_name: userName,
       user_email: email,
       user_password: password,
     });
+    uploadImage(imageFromCamera || imageFromPicker);
   };
   const goToSignin = () => {
     navigation.navigate("Signin");
