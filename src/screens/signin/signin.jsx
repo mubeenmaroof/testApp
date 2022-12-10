@@ -21,7 +21,9 @@ function Signin({ navigation }) {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.bgcolor }}>
+    <ScrollView
+      contentContainerstyle={{ flex: 1, backgroundColor: colors.bgcolor }}
+    >
       <Header title={"Sign in"} />
       <View style={styles.formCon}>
         <Input

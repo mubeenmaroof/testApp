@@ -14,12 +14,17 @@ import { Header } from "../../components/header";
 import { TextButton } from "../../components/textButton";
 import { firebase } from "../../services/firebaseConfig";
 import { Ionicons } from "@expo/vector-icons";
+import { MediaPicker } from "../../components/mediapicker";
+import { CustomCamera } from "../../components/customCamera";
 
 function Signup({ navigation }) {
   const [showPass, setShowPass] = useState(false);
   const [userName, setUserName] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
+  const [isPickerShown, setIsPickerShown] = useState(false);
+  const [isCameraShown, setIsCameraShown] = useState(false);
+  const [imageFromPicker, setImageFromPicker] = useState();
 
   const handleShowPass = () => {
     if (showPass === true) {
@@ -39,13 +44,28 @@ function Signup({ navigation }) {
   const goToSignin = () => {
     navigation.navigate("Signin");
   };
+  const onImagePressed = () => {
+    if (isPickerShown === true) {
+      setIsPickerShown(false);
+    } else if (isPickerShown === false) {
+      setIsPickerShown(true);
+    }
+    //setIsPickerShown(!setIsPickerShown);
+  };
 
+  const onImageCameFromgallery = (image) => {
+    setImageFromPicker(image.uri);
+    setIsPickerShown(false);
+  };
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.bgcolor }}>
       <Header title={"Sign up"} />
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onImagePressed}>
         <View style={styles.pickImageCircle}>
-          <Ionicons name={"md-image-sharp"} color={"white"} size={50} />
+          <Image
+            source={{ uri: imageFromPicker }}
+            style={{ width: 100, height: 100 }}
+          />
         </View>
       </TouchableOpacity>
       <View style={styles.formCon}>
@@ -78,6 +98,20 @@ function Signup({ navigation }) {
 
         <BButton title={"Sign up"} onButtonPress={onSignupPress} />
       </View>
+      <MediaPicker
+        show={isPickerShown}
+        onClose={onImagePressed}
+        onImagePickerSelected={(imageSelected) => {
+          onImageCameFromgallery(imageSelected);
+        }}
+        onCameraPressed={() => {
+          setIsCameraShown(!isCameraShown);
+        }}
+      />
+      <CustomCamera
+        show={isCameraShown}
+        onClose={() => setIsCameraShown(false)}
+      />
     </ScrollView>
   );
 }
