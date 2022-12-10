@@ -25,6 +25,7 @@ function Signup({ navigation }) {
   const [isPickerShown, setIsPickerShown] = useState(false);
   const [isCameraShown, setIsCameraShown] = useState(false);
   const [imageFromPicker, setImageFromPicker] = useState();
+  const [imageFromCamera, setImageFromCamera] = useState();
 
   const handleShowPass = () => {
     if (showPass === true) {
@@ -63,8 +64,9 @@ function Signup({ navigation }) {
       <TouchableOpacity onPress={onImagePressed}>
         <View style={styles.pickImageCircle}>
           <Image
-            source={{ uri: imageFromPicker }}
-            style={{ width: 100, height: 100 }}
+            source={{ uri: imageFromPicker || imageFromCamera }}
+            style={{ width: 100, height: 100, borderRadius: 50 }}
+            resizeMode={"contain"}
           />
         </View>
       </TouchableOpacity>
@@ -111,6 +113,11 @@ function Signup({ navigation }) {
       <CustomCamera
         show={isCameraShown}
         onClose={() => setIsCameraShown(false)}
+        onPicturetaken={(response) => {
+          setIsCameraShown(false);
+          setIsPickerShown(false);
+          setImageFromCamera(response.uri);
+        }}
       />
     </ScrollView>
   );

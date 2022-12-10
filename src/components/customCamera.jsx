@@ -1,4 +1,8 @@
-import { Camera, CameraType } from "expo-camera";
+import {
+  Camera,
+  CameraType,
+  requestMicrophonePermissionsAsync,
+} from "expo-camera";
 import { useEffect, useState, useRef } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
@@ -54,6 +58,11 @@ function CustomCamera({ show, onClose, onPicturetaken }) {
               <Ionicons name={"close-circle"} color={"white"} size={50} />
             </TouchableOpacity>
           </View>
+          <View style={styles.bottomCon}>
+            <TouchableOpacity onPress={__takePicture}>
+              <Ionicons name={"camera"} color={"white"} size={50} />
+            </TouchableOpacity>
+          </View>
         </Camera>
       </Modal>
     </View>
@@ -74,5 +83,15 @@ const styles = StyleSheet.create({
   topButtonView: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  bottomCon: {
+    height: "80%",
+    width: "100%",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  captureButton: {
+    alignSelf: "center",
+    marginTop: 100,
   },
 });
